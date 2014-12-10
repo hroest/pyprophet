@@ -15,7 +15,6 @@ dirname = os.path.dirname(os.path.abspath( inspect.stack()[0][1] ))
 pyprophet_exe = os.path.join(os.path.join(os.path.join(dirname, ".."), "pyprophet"), "main.py")
 
 a = Analysis([pyprophet_exe],
-             pathex=['/home/hr/projects/pyprophet/building'],
              hiddenimports=[],
              hookspath=None,
              runtime_hooks=None,
@@ -24,23 +23,20 @@ a = Analysis([pyprophet_exe],
 a.datas.append(("sklearn/utils/sparsetools/_graph_validation.py", os.path.join(os.path.dirname(sklearn.__file__), 'utils/sparsetools/_graph_validation.py'),"BINARY"))
 a.datas.append(("sklearn/utils/sparsetools/_graph_tools.so", os.path.join(os.path.dirname(sklearn.__file__), 'utils/sparsetools/_graph_tools.so'),"BINARY"))
 
-print "=================="
-print a.datas[-1]
-
 pyz = PYZ(a.pure,
              cipher=block_cipher)
 exe = EXE(pyz,
           a.scripts,
-          exclude_binaries=True,
-          name='main',
+          a.binaries,
+          a.zipfiles,
+          a.datas,
+          name='pyprophet',
           debug=False,
           strip=None,
           upx=True,
           console=True )
-coll = COLLECT(exe,
-               a.binaries,
-               a.zipfiles,
-               a.datas,
-               strip=None,
-               upx=True,
-               name='main')
+app = BUNDLE(exe,
+             name='pyprophet.app',
+             bundle_identifier='ch.ethz.imsb.pyprophet',
+             version='1.0',)
+
