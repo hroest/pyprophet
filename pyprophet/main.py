@@ -246,3 +246,7 @@ def _main(args):
 
     print "%d seconds and %d msecs wall time" % (seconds, msecs)
     print
+
+if __name__ == "__main__":
+    main()
+
