@@ -2,10 +2,9 @@ from setuptools import setup, find_packages
 from distutils.extension import Extension
 
 
-import pyprophet
 import numpy
 
-version = pyprophet.__version__
+version = (0, 13, 3)
 
 ext_modules = [Extension("pyprophet._optimized", ["pyprophet/_optimized.c"])]
 
@@ -16,8 +15,7 @@ setup(name='pyprophet',
       description="Python reimplementation of mProphet peak scoring",
       license="BSD",
       url="http://github.com/uweschmitt/pyprophet",
-      packages=find_packages(exclude=['ez_setup',
-                                      'examples', 'tests']),
+      packages=find_packages(exclude=['ez_setup', 'examples', 'tests']),
       include_package_data=True,
       include_dirs = [numpy.get_include()],
       classifiers=[
@@ -36,6 +34,7 @@ setup(name='pyprophet',
           "scipy >= 0.9.0",
           "numexpr >= 2.1",
           "scikit-learn >= 0.13",
+          "matplotlib",
       ],
       test_suite="nose.collector",
       tests_require="nose",
